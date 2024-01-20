@@ -6,14 +6,16 @@ const logger = require('morgan');
 const session = require('express-session');
 
 const indexRouter = require('./routes/index');
-const v1ApiRouter = require('./routes/v1/api');
+const v1ApiRouter = require('./routes/v1/api.router');
 
 const app = express();
 
 // Session
 const appSession = {
   secret: 'keyboard cat',
-  cookie: {}
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
 }
 
 if (app.get('env') === 'production') {
@@ -22,6 +24,8 @@ if (app.get('env') === 'production') {
 }
 
 app.use(session(appSession))
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
